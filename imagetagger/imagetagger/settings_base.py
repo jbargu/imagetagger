@@ -26,6 +26,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'imagetagger.abml',
     'imagetagger.annotations',
     'imagetagger.base',
     'imagetagger.images',

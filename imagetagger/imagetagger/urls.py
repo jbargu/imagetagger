@@ -22,6 +22,7 @@ from .users.forms import UserRegistrationForm
 
 urlpatterns = [
     url(r'^user/', include('django.contrib.auth.urls')),
+    url(r'^abml/', include('imagetagger.abml.urls')),
     url(r'^accounts/register/$', RegistrationView.as_view(form_class=UserRegistrationForm)),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^', include('imagetagger.base.urls')),
