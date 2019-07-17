@@ -1,9 +1,14 @@
 {% extends 'base/base.html' %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block bodyblock %}
 <div class="container">
   <div class="row">
+    <a class="btn btn-primary" href="{% url 'abml:create_abmlexperiment' %}">
+      {% trans 'Create' %}
+      </a>
+
     {% if abml_experiments %}
     <h3>My ABML experiments</h3>
     <ul>
