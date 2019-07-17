@@ -39,12 +39,13 @@ def create_abmlexperiment(request):
         if form.is_valid():
             team = form.instance.image_set.team
 
-        # if not team.has_perm('', request.user):
-            # messages.warning(
-                # request,
-                # _('You do not have permission to create image sets in the team {}.')
-                # .format(team.name))
-            # return redirect(reverse('users:team', args=(team.id,)))
+            if not team.has_perm('create_set', request.user):
+                messages.warning(
+                        request,
+                        _('You do not have permission to create abml experiments in the team {}.')
+                        .format(team.name))
+                return redirect(reverse('users:team', args=(team.id,)))
+
             with transaction.atomic():
                 form.instance.team = team
                 form.instance.creator = request.user
@@ -57,4 +58,19 @@ def create_abmlexperiment(request):
 
     return render(request, 'abml/create_abmlexperiment.html', {
         'form': form
+    })
+
+
+@login_required
+def view_abmlexperiment(request, abml_exp_id):
+    abml_exp = get_object_or_404(ABMLExperiment, id=abml_exp_id)
+
+    if not abml_exp.image_set.has_perm('read', request.user):
+        messages.warning(request, 'you do not have the permission to access this ABML exp')
+        return redirect(reverse('abml:index'))
+
+    recommender_name = dict(abml_exp.RECOMMENDER)[abml_exp.recommender]
+    return TemplateResponse(request, 'abml/view_abmlexperiment.html', {
+        'abml_exp': abml_exp,
+        'recommender_name': recommender_name
     })

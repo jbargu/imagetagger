@@ -7,6 +7,7 @@ class ABMLExperimentCreationForm(forms.ModelForm):
         model = ABMLExperiment
         fields = [
             'name',
+            'description',
             'image_set',
             'recommender'
         ]

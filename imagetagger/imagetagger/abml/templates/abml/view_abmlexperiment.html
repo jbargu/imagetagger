@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block bodyblock %}
+<div class="container">
+  <div class="row">
+    <h3>{% trans 'ABML experiment:' %} {{ abml_exp.name }}</h3>
+    <p>{% trans 'Description: ' %} {{ abml_exp.description }}</p>
+    <p>{% trans 'Time: ' %}{{ abml_exp.time }}</p>
+    <p>{% trans 'Image set name: ' %}{{ abml_exp.image_set.name }}</p>
+    <p>{% trans 'Recommendation algorithm: ' %}{{ recommender_name }}</p>
+  </div>
+</div>
+{% endblock %}
