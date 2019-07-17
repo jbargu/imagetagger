@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block bodyblock %}
+    <form method="POST" action="{% url 'abml:create_abmlexperiment' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">{{ form.name.label }}</label>
+            {% render_field form.name class+='form-control' %}
+            {% for error in form.name.errors %}
+                <div class="alert alert-warning">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="id_description">{{ form.description.label }}</label>
+            {% render_field form.description class+='form-control' %}
+            {% for error in form.description.errors %}
+                <div class="alert alert-warning">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="id_image_set">{{ form.image_set.label }}</label>
+            {% render_field form.image_set %}
+            {% for error in form.image_set.errors %}
+                <div class="alert alert-warning">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="id_recommender">{{ form.recommender.label }}</label>
+            {% render_field form.recommender %}
+            {% for error in form.recommender.errors %}
+                <div class="alert alert-warning">{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-warning">{{ error }}</div>
+        {% endfor %}
+        <input type="submit" value="{% trans 'Create ABML experiment' %}" class="btn btn-primary" />
+    </form>
+{% endblock bodyblock %}
